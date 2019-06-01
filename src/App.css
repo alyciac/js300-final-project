@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat&display=swap');
+
+
 .App {
   text-align: center;
 }
@@ -21,6 +24,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.user-image{
+  background: url("beets-carrots-close-up-533360.jpg");
 }
 
 @keyframes App-logo-spin {
