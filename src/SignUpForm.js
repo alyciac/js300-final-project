@@ -3,13 +3,47 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container'
+import firebase from 'firebase';
 
-class SignUp extends React.Component{
+
+//const db = firebase.firestore();
+
+class NewUserEntry extends React.Component{
+
+    //componentWillMount(){
+       // this.unsubscribeEntry();
+    //}
+
+   // state = {
+       // entries: [],
+        //entry: ''
+   // }
+
+   // componentDidMount(){
+        //listens for database changes
+       // this.unsubscribeEntry = db
+           // .collection('users')
+            // .onSnapshot(snapshot => {
+              //  this.setState({
+                   // entries: snapshot.docs
+               // });
+           // });
+    //}
+
+    //componentWillMount(){
+        //this.unsubscribeEntry();
+    //}
+
     render(){
         return (
             <Container>
+                <h1>Turnip Swap</h1>
+                <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi
+                    amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale.
+                    Celery potato scallion desert raisin horseradish spinach carrot soko. </p>
+                <h2>Sign Up</h2>
             <Form>
-                    <Form.Group controlId="form.SignUp">
+                    <Form.Group controlId="form.SignUp" onSubmit="this.addUser">
                         <Form.Label>Name</Form.Label>
                         <Form.Row>
                             <Col>
@@ -21,6 +55,10 @@ class SignUp extends React.Component{
                         </Form.Row>
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicUsername">
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" placeholder="Username" />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
@@ -56,5 +94,5 @@ class SignUp extends React.Component{
     }
 }
 
-export default SignUp;
+export default NewUserEntry;
 

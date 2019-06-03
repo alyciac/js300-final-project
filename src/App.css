@@ -2,7 +2,12 @@
 
 
 .App {
-  text-align: center;
+  text-align: left;
+}
+
+.body{
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .App-logo {
@@ -24,10 +29,6 @@
 
 .App-link {
   color: #61dafb;
-}
-
-.user-image{
-  background: url("beets-carrots-close-up-533360.jpg");
 }
 
 @keyframes App-logo-spin {
