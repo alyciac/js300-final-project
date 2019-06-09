@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import './setupFirebase';
 import firebase from 'firebase';
 
+
 const db = firebase.firestore();
 
     class NewUserEntry extends React.Component{
@@ -51,10 +52,14 @@ const db = firebase.firestore();
     addUser = (event) => {
         db.collection('users').doc(this.state.Id).set(this.state);
         event.preventDefault();
+        alert("Thank you. Your Form has been Sumitted.")
+        event.target.reset();
+
     }
 
     render(){
         return (
+
             <Container>
                 <h1>Turnip Swap</h1>
                 <p>Turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi
@@ -105,6 +110,7 @@ const db = firebase.firestore();
                     </Button>
                 </Form>
             </Container>
+
         );
     }
 }
