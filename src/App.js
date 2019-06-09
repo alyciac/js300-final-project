@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import SignUp from './SignUpForm';
-import SignIn from './SignInForm';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import UserComponent from './User';
 import Nav from 'react-bootstrap/Nav';
@@ -16,17 +15,15 @@ function App() {
       <Navbar bg="light" variant="light">
             <Navbar.Brand><Link to="/">TurnipSwap</Link></Navbar.Brand>
             <Nav className="mr-auto">
-              <Nav.Link><Link to="/users">Gardner Profiles</Link></Nav.Link>
+              <Link className="nav-link" to="/users">Gardner Profiles</Link>
             </Nav>
             <Nav>
-              <Nav.Link><Link to="/log-in">Log In</Link></Nav.Link>
-              <Nav.Link><Link to="/">Sign Up</Link></Nav.Link>
+              <Link className="nav-link" to="/">Sign Up</Link>
             </Nav>
       </Navbar>
       </header>
       <div className='body'>
           <Route exact path="/" component={SignUp} />
-          <Route path="/log-in" component={SignIn} />
           <Route path="/users" component={UserComponent} />
       </div>
     </Router>

@@ -17,7 +17,7 @@ db.collection("users").get().then(function(querySnapshot) {
 class UserComponent extends React.Component {
     state = {
         users: [],
-        password: ''
+        user:'',
     }
     componentDidMount() {
         this.unsubscribe = db
@@ -34,21 +34,28 @@ class UserComponent extends React.Component {
 
    render(){
     const users = this.state.users.map(user => {
+            const email= user.data().Email;
+            const hasVeggies = user.data().Has.map(hasVeggie => {
+                return <ListGroupItem key={hasVeggie + user.id} as="li">{hasVeggie}</ListGroupItem>
+            });
+            const wantsVeggies = user.data().Wants.map(wantsVeggie => {
+                return <ListGroupItem key={wantsVeggie + user.id} as="li">{wantsVeggie}</ListGroupItem>
+            });
         return (
-            <Container>
+            <Container key={user.id}>
             <Card>
                 <Card.Header>Seattle, WA</Card.Header>
                 <Card.Body>
                     <Card.Title>{user.id}</Card.Title>
                     <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
                     <ListGroup as="ul">
-                        <ListGroupItem as="li" action variant="primary">Produce to Swap:</ListGroupItem>
-                        <ListGroupItem as="li" action variant="primary" >Looking for: </ListGroupItem>
-                        <ListGroupItem as="li">Item One </ListGroupItem>
-                        <ListGroupItem as="li">Item Two</ListGroupItem>
+                        <ListGroupItem as="li" variant="primary">Produce to Swap:</ListGroupItem>
+                        {hasVeggies}
+                        <ListGroupItem as="li" variant="primary" >Looking for: </ListGroupItem>
+                        {wantsVeggies}
                     </ListGroup>
             </Card.Body>
-            <Card.Footer><Card.Link href="mailto:{user.Email}">Contact Gardner</Card.Link></Card.Footer>
+            <Card.Footer>Contact Gardner: <a href={"mailto:" + email}>{email}</a></Card.Footer>
             </Card>
         </Container>
         );

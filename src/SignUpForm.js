@@ -2,37 +2,56 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import './setupFirebase';
 import firebase from 'firebase';
 
+const db = firebase.firestore();
 
-//const db = firebase.firestore();
+    class NewUserEntry extends React.Component{
+        state = {
+            Email: '',
+            Name: {
+                First: '',
+                Last: ' '
+            },
+            Has: [],
+            Wants: []
+        }
 
-class NewUserEntry extends React.Component{
+    // Sets the input field onChange
+    onEmailChange = (event) => {
+        const Email = event.target.value;
+        this.setState({Email});
+    }
+    onFirstChange = (event) => {
+        const First = event.target.value;
+        this.setState({Name:{First}});
+    }
 
-    //componentWillMount(){
-       // this.unsubscribeEntry();
-    //}
+    onLastChange = (event) => {
+        const Name = this.state.Name;
+        Name.Last = event.target.value;
+        this.setState({Name});
+    }
 
-   // state = {
-       // entries: [],
-        //entry: ''
-   // }
+    onHasChange = (event) => {
+        this.setState({Has: [...event.target.selectedOptions].map(o => o.value)});
+    }
 
-   // componentDidMount(){
-        //listens for database changes
-       // this.unsubscribeEntry = db
-           // .collection('users')
-            // .onSnapshot(snapshot => {
-              //  this.setState({
-                   // entries: snapshot.docs
-               // });
-           // });
-    //}
+    onWantsChange = (event) => {
+        this.setState({Wants: [...event.target.selectedOptions].map(o => o.value)});
+    }
 
-    //componentWillMount(){
-        //this.unsubscribeEntry();
-    //}
+    onIdChange = (event) => {
+        const Id = event.target.value;
+        this.setState({Id});
+    }
+
+    addUser = (event) => {
+        db.collection('users').doc(this.state.Id).set(this.state);
+        event.preventDefault();
+    }
 
     render(){
         return (
@@ -42,31 +61,27 @@ class NewUserEntry extends React.Component{
                     amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale.
                     Celery potato scallion desert raisin horseradish spinach carrot soko. </p>
                 <h2>Sign Up</h2>
-            <Form>
-                    <Form.Group controlId="form.SignUp" onSubmit="this.addUser">
+            <Form onSubmit={this.addUser} >
+                    <Form.Group controlId="form.SignUp">
                         <Form.Label>Name</Form.Label>
                         <Form.Row>
                             <Col>
-                            <Form.Control placeholder="First name" />
+                            <Form.Control onChange={this.onFirstChange} name="First" placeholder="First name" />
                             </Col>
                             <Col>
-                            <Form.Control placeholder="Last name" />
+                            <Form.Control onChange={this.onLastChange}name="Last" placeholder="Last name" />
                             </Col>
                         </Form.Row>
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
+                        <Form.Control name="Email" onChange={this.onEmailChange} type="email" placeholder="Enter email" />
                     </Form.Group>
                     <Form.Group controlId="formBasicUsername">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" placeholder="Username" />
-                    </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Form.Control onChange={this.onIdChange} name="userid" type="text" placeholder="Username" id="username" />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Veggies you wish to swap:</Form.Label>
-                            <Form.Control as="select" multiple>
+                            <Form.Control onChange={this.onHasChange} as="select" multiple >
                             <option>Broccoli</option>
                             <option>Tomatoes</option>
                             <option>Zucchini/Summer Squash</option>
@@ -76,7 +91,7 @@ class NewUserEntry extends React.Component{
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Veggies you wish to receive:</Form.Label>
-                            <Form.Control as="select" multiple>
+                            <Form.Control as="select" multiple onChange={this.onWantsChange}>
                             <option>Broccoli</option>
                             <option>Tomatoes</option>
                             <option>Zucchini/Summer Squash</option>
